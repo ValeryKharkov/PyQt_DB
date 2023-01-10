@@ -1,6 +1,5 @@
 from PySide6 import QtWidgets, QtSql, QtCore
-
-
+from form_exam import Ui_Form
 
 
 
@@ -8,9 +7,12 @@ class Window(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
 
+        self.ui = Ui_Form()
+        self.ui.setupUi(self)
 
-
+        self.initSQLModel()
         self.initUi()  # Метод для инициализации интерфейса
+        #self.initSignals()
 
     def initUi(self) -> None:
         """
@@ -68,6 +70,13 @@ class Window(QtWidgets.QWidget):
         # Установка основного слоя на окно
         self.setLayout(layoutMain)
 
+        # Таблица
+        self.ui.tableView.setModel(self.model)
+        self.ui.tableView.setColumnHidden(0, True)
+        self.ui.tableView.setColumnHidden(4, True)
+        self.ui.tableView.horizontalHeader().setSectionsMovable(True)
+        self.ui.tableView.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+
     def initSQLModel(self) -> None:
         """
         Создание подключения (модели) для работы с БД
@@ -75,18 +84,18 @@ class Window(QtWidgets.QWidget):
         :return: None
         """
 
-        # Загружаем драйвер и устанавливаем БД
+        # Загрузка драйвера и установка БД
         db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
         db.setDatabaseName('fieldlist.db')
 
-        # Создаём модель (можно использовать кастомную)
-        #self.model = EditableSQLModel()
+        # Создание модели
         self.model = QtSql.QSqlTableModel()
         self.model.setTable('field')
         self.model.select()
-        self.model.setHeaderData(0, QtCore.Qt.Horizontal, "Имя")
-        self.model.setHeaderData(1, QtCore.Qt.Horizontal, "Фамилия")
-        self.model.setHeaderData(2, QtCore.Qt.Horizontal, "Телефон")
+        self.model.setHeaderData(1, QtCore.Qt.Horizontal, "Имя")
+        self.model.setHeaderData(2, QtCore.Qt.Horizontal, "Фамилия")
+        self.model.setHeaderData(3, QtCore.Qt.Horizontal, "Телефон")
+
 
 
 
