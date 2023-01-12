@@ -2,7 +2,6 @@ from PySide6 import QtWidgets, QtSql, QtCore
 from form_exam import Ui_Form
 
 
-
 class Window(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
@@ -95,7 +94,7 @@ class Window(QtWidgets.QWidget):
 
         # Загрузка драйвера и установка БД
         db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
-        db.setDatabaseName('fieldlist.db')
+        db.setDatabaseName('Phone_book.db')
 
         # db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
         # db.setDatabaseName('PyQt_exam.db')
@@ -129,7 +128,7 @@ class Window(QtWidgets.QWidget):
         :return: None
         """
 
-        if self.ui.tableView.currentIndex().row() > 0:
+        if self.ui.tableView.currentIndex().row() > - 1:
             self.model.removeRow(self.ui.tableView.currentIndex().row())
             self.model.select()
 
