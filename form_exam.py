@@ -76,7 +76,8 @@ class Ui_Form(object):
 
         self.lineEditPhone = QLineEdit(Form)
         self.lineEditPhone.setObjectName(u"lineEditPhone")
-        self.lineEditPhone.setPlaceholderText("Введите телефон")
+        #self.lineEditPhone.setPlaceholderText("Введите телефон")
+        self.lineEditPhone.setInputMask('+7(999)999-99-99')
 
         self.horizontalLayout_5.addWidget(self.lineEditPhone)
 
